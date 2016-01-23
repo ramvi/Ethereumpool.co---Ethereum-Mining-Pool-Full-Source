@@ -1,11 +1,11 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
 $m = new Memcached();
-include('/var/www4/BigInteger.php');
+include('/usr/share/nginx/html/pool/BigInteger.php');
 $m->addServer('localhost', 11211);
 
 while (1) {
-$ch1 = curl_init('http://www.worldcoinindex.com/apiservice/json?key=VmSgGMRH16yrWfmpMccmP4Xdv');                                                                                                                                                                                                          
+$ch1 = curl_init('http://www.worldcoinindex.com/apiservice/json?key=ooW49oJ669QxELeGMRpVVVK9G');
 curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);                                                                      
 curl_setopt($ch1, CURLOPT_HTTPHEADER, array(                                                                          
     'Content-Type: application/json',                                                                                

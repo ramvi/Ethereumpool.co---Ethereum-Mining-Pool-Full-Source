@@ -1,6 +1,6 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
-include('/var/www4/BigInteger.php');
+include('/usr/share/nginx/html/pool/BigInteger.php');
 $config = include('../../config.php');
 $ether_wei = 1000000000000000000;
 
