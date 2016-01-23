@@ -1,6 +1,6 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
-include('/var/www4/BigInteger.php');
+include('/usr/share/nginx/html/pool/BigInteger.php');
 $config = include('../../config.php');
 $ether_wei = 1000000000000000000;
 
@@ -10,7 +10,7 @@ $m->set('state_work',1);
 
 ////////////////////////////////////////LOGS////////////////////////////////////
 $file = 'withdraw_log_';
-$file = '/home/admin/log/'.$file.'='.date('Y M d').'.txt';
+$file = '/usr/share/nginx/html/pool/block_processing/'.$file.'='.date('Y M d').'.txt';
 if(!file_exists($file)) 
 { 
   $fh = fopen($file, 'w');

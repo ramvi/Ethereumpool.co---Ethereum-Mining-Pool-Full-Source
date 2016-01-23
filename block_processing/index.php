@@ -1,6 +1,6 @@
 <?php
 	error_reporting(error_reporting() & ~E_NOTICE);
-	include('/var/www4/BigInteger.php');
+	include('/usr/share/nginx/html/pool/BigInteger.php');
 	$config = include('../config.php');
 
 	$mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die("Database Error");
@@ -26,7 +26,7 @@ while(1) {
 	////////////////////////////////////////LOGS////////////////////////////////////
 	$logstate = true;
 	$file = 'log';
-	$file = '/var/www4/block_processing/'.$file.'='.date('Y M d').'.txt';
+	$file = '/usr/share/nginx/html/pool/block_processing/'.$file.'='.date('Y M d').'.txt';
 	if(!file_exists($file)) 
 	{ 
  	  $fh = fopen($file, 'w');
@@ -250,7 +250,7 @@ if (!$result3) {
 				}
 				$data = array("array" => $dataitems);                                                                    
 				$data_string = base64_encode(json_encode($data));
-				$filtempe = '/var/www4/block_processing/temp.txt';
+				$filtempe = '/usr/share/nginx/html/pool/block_processing/temp.txt';
 				if(!file_exists($filtempe)) 
 				{ 
  	  				$fh = fopen($filtempe, 'w');

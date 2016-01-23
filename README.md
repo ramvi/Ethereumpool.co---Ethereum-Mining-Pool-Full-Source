@@ -32,20 +32,20 @@ To maximize performance tweak configurations of memcached,mariadb,nginx,hhvm and
 
 Now start background scripts:<br>
 Get Work from GETH Json RPC and cache it with memcached (reduces queries to geth rpc)
-<pre>screen<br>Push Enter key<br>sudo php /var/www4/block_processing/process_work/index.php</pre>
+<pre>screen<br>Push Enter key<br>sudo php /usr/share/nginx/html/pool/block_processing/process_work/index.php</pre>
 <br>Block Processing - this script handle block splitting and Proof of Work verification
-<pre>screen<br>Push Enter key<br>sudo php /var/www4/block_processing/index.php</pre>
+<pre>screen<br>Push Enter key<br>sudo php /usr/share/nginx/html/pool/block_processing/index.php</pre>
 <br>This script updates data to calculate predicted mining rewards
-<pre>screen<br>Push Enter key<br>sudo php /var/www4/block_processing/update_calculator/index.php</pre>
+<pre>screen<br>Push Enter key<br>sudo php /usr/share/nginx/html/pool/block_processing/update_calculator/index.php</pre>
 <br>Used to process internal statistics and save to database
-<pre>screen<br>Push Enter key<br>sudo php /var/www4/block_processing/stats/index.php</pre>
+<pre>screen<br>Push Enter key<br>sudo php /usr/share/nginx/html/pool/block_processing/stats/index.php</pre>
 
 <br>
 You can execute withdraws manually or add it as cron job
-<pre>sudo php /var/www4/block_processing/withdraw/index.php</pre>
+<pre>sudo php /usr/share/nginx/html/pool/block_processing/withdraw/index.php</pre>
 
 crontab -e
-<pre>* */12 * * * sudo php /var/www4/block_processing/withdraw/index.php</pre>
+<pre>* */12 * * * sudo php /usr/share/nginx/html/pool/block_processing/withdraw/index.php</pre>
 
 This both scripts can be used to check if withdraws has been processed correctly or check if splited balance == real balance, it was mainly used while development process but it might be helpful.
 <pre>

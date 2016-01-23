@@ -2,8 +2,8 @@
 
 return array(
     'host' => 'localhost',
-    'username' => '',
-	'password' => '',
-	'bdd' => ''
+    'username' => 'root',
+	'password' => 'DlesTie0',
+	'bdd' => 'pool'
 );
 ?>
