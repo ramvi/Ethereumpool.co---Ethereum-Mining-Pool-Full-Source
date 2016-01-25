@@ -20,6 +20,17 @@ This is the full source code of the Ethereum Mining Pool Winze.io. This project 
 1. Setup Nginx site in `/etc/nginx/sites-enabled/*`:
 <pre>'mainpage' directory as public and if you need block /logs directory 'block_processing' locally </pre>
 1. Move files <pre>nonce_fast.py and nonce.py</pre> from 'misc' directory to `*/pyethereum/ethereum/` (main directory of Pyethereum)
+1. Create `config.php` in the git root folder
+```php
+<?php
+return array(
+  'host' => 'localhost',
+  'username' => 'root',
+  'password' => '',
+  'bdd' => '',
+  'BigInteger' => '/usr/share/nginx/html/BigInteger.php'
+);
+```
 
 ## Start Pool
 <pre>screen<br>Push Enter key<br>geth --rpcaddr 127.0.0.1 --rpcport 8983 --rpc --unlock COINBASE_ADDRESS</pre>
