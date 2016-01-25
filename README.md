@@ -1,33 +1,27 @@
-# Ethereumpool.co---Ethereum-Mining-Pool-Full-Source
-This is full source of Ethereum Mining Pool - http://ethereumpool.co Pool has been written in php and one script in python to perform proof of work validation. Pool software is efficient, it was using only 4% cpu while handling ~250 workers. It may be quite messy but i didn't spend much time on creating this, my intention was to fastly create pool to save community from only one existing pool with 50-70% network hashrate, but later other pools pop up. So now it's even more decentralized, everybody can easily set up own pool :)
+# Winze.io
+>  Open source Ethereum Mining Pool
 
-#Requirements
-Recommended <a href="https://github.com/facebook/hhvmHHVM" target="_blank">HHVM</a> over php5-fpm, but php5-fpm is fine.<br>
-<a href="https://mariadb.org" target="_blank">MariaDB server</a><br>
-<a href="http://memcached.org" target="_blank">Memcached</a><br>
-<a href="https://github.com/phpseclib/phpseclib/blob/master/phpseclib/Math/BigInteger.php" target="_blank">BigInteger for php (included in project)</a><br>
-<a href="http://nginx.org" target="_blank">Nginx (Apache may be also fine, but i didn't tested)</a><br>
-<a href="https://github.com/ethereum/pyethereum" target="_blank">Pyethereum</a><br>
-<a href="https://github.com/ethereum/go-ethereum" target="_blank">Geth</a><br>
-<a href="http://www.highcharts.com" target="_blank">Highcharts (included in project)</a><br>
- 
+This is the full source code of the Ethereum Mining Pool Winze.io. This project builds on the code written by [karek314](https://github.com/karek314). The code is in PHP, except for one script which is in Python. The project is built to be efficient.
 
+## Installation
+* [Nginx](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-with-nginx-on-an-ubuntu-14-04-server) (Apache may be also fine, but is untested)
+* [HHVM](https://www.digitalocean.com/community/tutorials/how-to-install-hhvm-with-nginx-on-ubuntu-14-04) (Recommended over php5-fpm)
+* [MariaDB](https://www.liquidweb.com/kb/how-to-install-mariadb-5-5-on-ubuntu-14-04-lts/)
+* php5-memcached
+* <a href="https://github.com/ethereum/pyethereum" target="_blank">pyethereum</a>
+* <a href="https://github.com/ethereum/go-ethereum/releases" target="_blank">Geth</a><br>
 
-#Setup on Linux
-Install all software mentioned above.<br>
-Setup your mysql server and import database scheme <pre>misc>database_scheme.sql</pre>
-Now please review all source files and setup valid mysql connection details
+## Setup on Linux
+1. Install all software mentioned above.<br>
+1. Import database scheme <pre>misc>database_scheme.sql</pre>
+1. Now please review all source files and setup valid mysql connection details
 <pre>$mysqli=mysqli_connect('Mysql_server_ip','Database_username','Database_password','Database_name') or die("Database Error");</pre>
-Copy all files to server<br>
-Setup nginx server blocks:
-<pre>'mainpage' directory as public and if you need block /logs directory
-'block_processing' locally
-</pre>
-Also remember to setup phpmyadmin with ssl, etc..<br>
-Now move files <pre>nonce_fast.py and nonce.py</pre> from 'misc' directory to <pre>/root/pyethereum/ethereum/ (main directory of Pyethereum)</pre><br>
-To maximize performance tweak configurations of memcached,mariadb,nginx,hhvm and kernel but it's not necessary to start pool.<br>
+1. Copy all files to server<br>
+1. Setup Nginx site in `/etc/nginx/sites-enabled/*`:
+<pre>'mainpage' directory as public and if you need block /logs directory 'block_processing' locally </pre>
+1. Move files <pre>nonce_fast.py and nonce.py</pre> from 'misc' directory to `*/pyethereum/ethereum/` (main directory of Pyethereum)
 
-#Start Pool
+## Start Pool
 <pre>screen<br>Push Enter key<br>geth --rpcaddr 127.0.0.1 --rpcport 8983 --rpc --unlock COINBASE_ADDRESS</pre>
 
 Now start background scripts:<br>
@@ -52,7 +46,7 @@ This both scripts can be used to check if withdraws has been processed correctly
 sudo php /home/www4/block_processing/withdraw_check/index.php
 curl http://127.0.0.1:9846/check/</pre>
 
-#Notes
+### Notes
 withdraw_check and withdraw scripts saves logs in block_processing directory.<br>
 If you would like to debug mining proxy (mainpage/index.php)
 <pre>$logstate = true;</pre>
@@ -77,9 +71,3 @@ If you want to contribute, fork and pull request or open issue.
 Entire PHP and Python code is under The MIT License (MIT)<br>
 Front-end(site theme) is used from http://themes.3rdwavemedia.com/website-templates/responsive-bootstrap-theme-web-development-agencies-devstudio/<br>
 Personally i own license, so better buy license or use your own front-end.
-
-#Donate
-Bitcoin -> 1MsCcLLzaZtgEiMsigFoRJjz149mPSoFKC<br>
-![alt tag](http://s16.postimg.org/xbne92mdx/image.png)<br>
-
-Ethereum -> 0x9284e52d64d888f2aa1bb62a38f3b5259487376a
