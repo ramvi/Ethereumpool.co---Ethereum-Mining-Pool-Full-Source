@@ -1,7 +1,8 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
-include('/usr/share/nginx/html/pool/BigInteger.php');
 $config = include('../../config.php');
+
+include($config['BigInteger']);
 $ether_wei = 1000000000000000000;
 
 $data = array("jsonrpc" => "2.0", "method" => "eth_accounts", "params" => [], "id" => 64);                                                                    

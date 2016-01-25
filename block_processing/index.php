@@ -1,7 +1,8 @@
 <?php
 	error_reporting(error_reporting() & ~E_NOTICE);
-	include('/usr/share/nginx/html/pool/BigInteger.php');
-	$config = include('../config.php');
+	$config = include('../../config.php');
+
+	include($config['BigInteger']);
 
 	$mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die("Database Error");
 	$df = 0;

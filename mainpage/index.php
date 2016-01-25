@@ -1,9 +1,10 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
-include('/usr/share/nginx/html/pool/BigInteger.php');
+$config = include('../config.php');
+
+include($config['BigInteger']);
 $jsonquery = file_get_contents('php://input');
 $json = json_decode($jsonquery, true);
-$config = include('../config.php');
 $minerdata = $_GET["miner"];
 $host = $_SERVER["REMOTE_ADDR"];
 

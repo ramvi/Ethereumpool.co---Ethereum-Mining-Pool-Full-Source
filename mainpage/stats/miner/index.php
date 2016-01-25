@@ -1,8 +1,10 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
-$m = new Memcached();
-include('/usr/share/nginx/html/pool/BigInteger.php');
 $config = include('../../../config.php');
+
+include($config['BigInteger']);
+
+$m = new Memcached();
 $m->addServer('localhost', 11211);
 $ether_wei = 1000000000000000000;
 

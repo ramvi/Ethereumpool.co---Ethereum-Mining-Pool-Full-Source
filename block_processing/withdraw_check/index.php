@@ -1,13 +1,15 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
-include('/usr/share/nginx/html/pool/BigInteger.php');
 $config = include('../../config.php');
+
+include($config['BigInteger']);
+
 $ether_wei = 1000000000000000000;
 
 
 ////////////////////////////////////////LOGS////////////////////////////////////
 $file = 'withdraw_checker_log_';
-$file = '/usr/share/nginx/html/pool/block_processing/'.$file.'='.date('Y M d').'.txt';
+$file = '/usr/share/nginx/html/block_processing/'.$file.'='.date('Y M d').'.txt';
 if(!file_exists($file)) 
 { 
   $fh = fopen($file, 'w');

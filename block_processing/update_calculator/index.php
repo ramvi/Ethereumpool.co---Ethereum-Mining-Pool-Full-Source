@@ -1,7 +1,10 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
+$config = include('../../config.php');
+
+include($config['BigInteger']);
+
 $m = new Memcached();
-include('/usr/share/nginx/html/pool/BigInteger.php');
 $m->addServer('localhost', 11211);
 
 while (1) {
