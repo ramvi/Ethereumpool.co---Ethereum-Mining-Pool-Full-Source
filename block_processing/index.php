@@ -27,7 +27,7 @@ while(1) {
 	////////////////////////////////////////LOGS////////////////////////////////////
 	$logstate = true;
 	$file = 'log';
-	$file = '/usr/share/nginx/html/pool/block_processing/'.$file.'='.date('Y M d').'.txt';
+	$file = '/usr/share/nginx/html/block_processing/'.$file.'='.date('Y M d').'.txt';
 	if(!file_exists($file)) 
 	{ 
  	  $fh = fopen($file, 'w');
@@ -170,8 +170,8 @@ if (!$result3) {
 	}
 	$ether_wei = 1000000000000000000;
 
-	$pool_fee_revenue = '0x50e00de2c5cc4e456cf234fcb1a0efa367ed016e';  //Pool fee revenue
-	$poolFee = 100-1;  // fee -> 1%
+	$pool_fee_revenue = '0x73cf31003e9c43815fd0c41ad41c3825bd89774a';  //Pool fee revenue
+	$poolFee = 100-4.86;
 	$current .= "\nBlock size:".$block_coins_size->toString().'';
 	$current .= "\nPool fee:".$poolFee.'';
 
@@ -259,7 +259,7 @@ if (!$result3) {
 				}
 				file_put_contents($filtempe, $data_string);
 				$output=0;
-				$output = shell_exec('/usr/bin/python /root/pyethereum/ethereum/nonce_fast.py '.$filtempe.' '.rand(5,123142312));
+				$output = shell_exec('/usr/bin/python /opt/pyethereum/ethereum/nonce_fast.py '.$filtempe.' '.rand(5,123142312));
 				$test = explode(' ', $output);
 	
 				$countAll=0;
