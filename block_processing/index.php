@@ -27,7 +27,7 @@ while(1) {
 	////////////////////////////////////////LOGS////////////////////////////////////
 	$logstate = true;
 	$file = 'log';
-	$file = '/usr/share/nginx/html/block_processing/'.$file.'='.date('Y M d').'.txt';
+	$file = '/opt/pool/block_processing/'.$file.'='.date('Y M d').'.txt';
 	if(!file_exists($file)) 
 	{ 
  	  $fh = fopen($file, 'w');
