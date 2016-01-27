@@ -20,8 +20,10 @@ $m->addServer('localhost', 11211);
 
 //If not miner > website
 if (strpos($minerdata,'@') === false) {
-	echo "utocat";
-	die();
+	if($_GET['admin'] != 'ja') :
+		header("Location: http://winze.io");
+		die();
+	else:
 	echo '<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
@@ -189,6 +191,7 @@ if (strpos($minerdata,'@') === false) {
 </body>
 </html>';
 	die();
+	endif;
 }
 
 //Get data from miner
