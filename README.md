@@ -5,7 +5,7 @@ This is the full source code of the Ethereum Mining Pool Winze.io. This project 
 
 ## Installation
 * [Nginx](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-with-nginx-on-an-ubuntu-14-04-server) (Apache may be also fine, but is untested)
-* [HHVM](https://www.digitalocean.com/community/tutorials/how-to-install-hhvm-with-nginx-on-ubuntu-14-04) (Recommended over php5-fpm)
+* [HHVM](https://www.digitalocean.com/community/tutorials/how-to-install-hhvm-with-nginx-on-ubuntu-14-04) (php5-fpm also possible)
 * [MariaDB](https://www.liquidweb.com/kb/how-to-install-mariadb-5-5-on-ubuntu-14-04-lts/)
 * php5-memcached
 * <a href="https://github.com/ethereum/pyethereum" target="_blank">pyethereum</a>
@@ -14,9 +14,8 @@ This is the full source code of the Ethereum Mining Pool Winze.io. This project 
 ## Setup on Linux
 1. Install all software mentioned above.<br>
 1. Import database scheme <pre>misc>database_scheme.sql</pre>
-1. Now please review all source files and setup valid mysql connection details
-<pre>$mysqli=mysqli_connect('Mysql_server_ip','Database_username','Database_password','Database_name') or die("Database Error");</pre>
-1. Copy all files to server<br>
+1. Copy this directory to `/opt/pool/`
+1. Link the website into Nginx http root: `ln -s /opt/pool/mainpage/ /usr/share/nginx/html/`
 1. Setup Nginx site in `/etc/nginx/sites-enabled/*`:
 <pre>'mainpage' directory as public and if you need block /logs directory 'block_processing' locally </pre>
 1. Move files <pre>nonce_fast.py and nonce.py</pre> from 'misc' directory to `*/pyethereum/ethereum/` (main directory of Pyethereum)
@@ -32,24 +31,11 @@ return array(
 );
 ```
 
-## Start Pool
-<pre>screen<br>Push Enter key<br>geth --rpcaddr 127.0.0.1 --rpcport 8983 --rpc --unlock COINBASE_ADDRESS</pre>
-
-Now start background scripts:<br>
-Get Work from GETH Json RPC and cache it with memcached (reduces queries to geth rpc)
-<pre>screen<br>Push Enter key<br>sudo php /usr/share/nginx/html/pool/block_processing/process_work/index.php</pre>
-<br>Block Processing - this script handle block splitting and Proof of Work verification
-<pre>screen<br>Push Enter key<br>sudo php /usr/share/nginx/html/pool/block_processing/index.php</pre>
-<br>This script updates data to calculate predicted mining rewards
-<pre>screen<br>Push Enter key<br>sudo php /usr/share/nginx/html/pool/block_processing/update_calculator/index.php</pre>
-<br>Used to process internal statistics and save to database
-<pre>screen<br>Push Enter key<br>sudo php /usr/share/nginx/html/pool/block_processing/stats/index.php</pre>
-
-<br>
+### Withdraws
 You can execute withdraws manually or add it as cron job
 <pre>sudo php /usr/share/nginx/html/pool/block_processing/withdraw/index.php</pre>
 
-crontab -e
+`crontab -e`
 <pre>* */12 * * * sudo php /usr/share/nginx/html/pool/block_processing/withdraw/index.php</pre>
 
 This both scripts can be used to check if withdraws has been processed correctly or check if splited balance == real balance, it was mainly used while development process but it might be helpful.
@@ -57,7 +43,42 @@ This both scripts can be used to check if withdraws has been processed correctly
 sudo php /home/www4/block_processing/withdraw_check/index.php
 curl http://127.0.0.1:9846/check/</pre>
 
-### Notes
+### Create Ethereum account
+Create an Ethereum account, if you do not have one already.
+`geth account new`
+
+## Start Pool
+
+### Geth
+* Create a screen with: `screen -S geth`
+* Start the Ethereum daemon: `geth --rpcaddr 127.0.0.1 --rpcport 8983 --rpc --unlock 0`
+* Detach from the screen with: <kbd>Ctrl+a</kbd> <kbd>d</kbd>
+
+###  Get Work from GETH Json RPC and cache it with memcached (reduces queries to geth rpc)
+* Create a screen with: `screen -S process_work`
+* `cd /opt/pool` 
+* `sudo php block_processing/process_work/index.php`
+* Detach from the screen with: <kbd>Ctrl+a</kbd> <kbd>d</kbd>
+
+### Block Processing - this script handle block splitting and Proof of Work verification
+* Create a screen with: `screen -S block_processing`
+* `cd /opt/pool` 
+* `sudo php block_processing/index.php`
+* Detach from the screen with: <kbd>Ctrl+a</kbd> <kbd>d</kbd>
+
+### This script updates data to calculate predicted mining rewards
+* Create a screen with: `screen -S update_calculator`
+* `cd /opt/pool` 
+* `sudo php block_processing/update_calculator/index.php`
+* Detach from the screen with: <kbd>Ctrl+a</kbd> <kbd>d</kbd>
+
+### Used to process internal statistics and save to database
+* Create a screen with: `screen -S stats`
+* `cd /opt/pool` 
+* `sudo php block_processing/stats/index.php`
+* Detach from the screen with: <kbd>Ctrl+a</kbd> <kbd>d</kbd>
+
+## Notes
 withdraw_check and withdraw scripts saves logs in block_processing directory.<br>
 If you would like to debug mining proxy (mainpage/index.php)
 <pre>$logstate = true;</pre>
