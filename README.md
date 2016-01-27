@@ -1,4 +1,4 @@
-# Winze.io
+# winze.io
 >  Open source Ethereum Mining Pool
 
 This is the full source code of the Ethereum Mining Pool Winze.io. This project builds on the code written by [karek314](https://github.com/karek314). The code is in PHP, except for one script which is in Python. The project is built to be efficient.
