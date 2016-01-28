@@ -1,6 +1,6 @@
 <?php
 	error_reporting(error_reporting() & ~E_NOTICE);
-	$config = include('../../config.php');
+	$config = include('config.php');
 
 	include($config['BigInteger']);
 
@@ -27,6 +27,7 @@ while(1) {
 	////////////////////////////////////////LOGS////////////////////////////////////
 	$logstate = true;
 	$file = 'log';
+	date_default_timezone_set('Europe/Berlin');
 	$file = '/opt/pool/block_processing/'.$file.'='.date('Y M d').'.txt';
 	if(!file_exists($file)) 
 	{ 
