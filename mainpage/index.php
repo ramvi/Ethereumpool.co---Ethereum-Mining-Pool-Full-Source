@@ -20,6 +20,8 @@ $m->addServer('localhost', 11211);
 
 //If not miner > website
 if (strpos($minerdata,'@') === false) {
+	return "you're not a miner!";
+	/*
 	echo '<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
@@ -186,7 +188,7 @@ if (strpos($minerdata,'@') === false) {
     <script  type="text/javascript" src="../assets/js/form-mobile-fix.js"></script>     
 </body>
 </html>';
-	die();
+	die();*/
 
 }
 
