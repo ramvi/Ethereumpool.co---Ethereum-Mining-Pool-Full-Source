@@ -8,21 +8,14 @@ $m = new Memcached();
 $m->addServer('localhost', 11211);
 
 while (1) {
-$ch1 = curl_init('http://www.worldcoinindex.com/apiservice/json?key=VmSgGMRH16yrWfmpMccmP4Xdv');                                                                                                                                                                                                          
+$ch1 = curl_init('http://coinmarketcap-nexuist.rhcloud.com/api/eth');                                                                                                                                                                                                          
 curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);                                                                      
 curl_setopt($ch1, CURLOPT_HTTPHEADER, array(                                                                          
     'Content-Type: application/json',                                                                                
     'Content-Length: ' . strlen($data_string))                                                                       
     );
 $result1 = curl_exec($ch1);  
-$arrayjson = json_decode($result1, true); 
-$array = $arrayjson['Markets'];
-foreach ($array as $key => $value) {
-	if ('Ethereum' == $value['Name']) {
-		$result1 = $value['Price_usd'];
-	}
-}
-echo "\nPrice:".$result1;
+echo "\n1:".substr($result1,0,256); 
 $firstKey = 'eth_price_current';
 $m->set($firstKey,$result1);
 

@@ -95,6 +95,7 @@ if (!$result3) {
 	$block_coins_size = new Math_BigInteger('0');
 	
 	$balanceToSave = new Math_BigInteger('0');
+    
 	if (!$real_balance_prev == 0) {
 		$block_coins_size = $balanceaddr->subtract($real_balance_prev);
 	} else {
